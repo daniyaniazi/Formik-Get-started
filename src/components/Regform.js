@@ -1,24 +1,52 @@
 import React from "react";
 import { useFormik } from "formik";
 
+const initialValues = {
+  name: "",
+  email: "",
+  channel: "",
+};
+const onSubmit = (values) => {
+  console.log("FORM VALUES", values);
+};
+
+const validation = (values) => {
+  // errors key correspond to name attribute of form
+  // values of key is a string inidicating the error message
+  let errors = {};
+
+  if (!values.name) {
+    errors.name = "Required";
+  }
+  if (!values.email) {
+    errors.email = "Required";
+  } else if (
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+      values.email
+    )
+  ) {
+    errors.email = "Invalid Format";
+  }
+  if (!values.channel) {
+    errors.namchannele = "Required";
+  }
+  return errors;
+};
+
 function Regform() {
   //takes an object
   //this hooks return an object that contain properties method
   const formik = useFormik({
     //STEP 1
     //object that contain initial values for our form state
-    initialValues: {
-      name: "",
-      email: "",
-      channel: "",
-    },
+    initialValues: { initialValues },
     //STEP 2
     // chnage handler
 
     //STEP 3 submit handler
-    onSubmit: (values) => {
-      console.log("FORM VALUES", values);
-    },
+    onSubmit: onSubmit,
+    // it automatically recieved a values
+    validate: validation,
   });
 
   //   console.log("FORM VALUES", formik.values);
