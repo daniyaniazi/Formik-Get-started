@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import ErrorMsg from "./ErrorMsg";
 
 const initialValues = {
   name: "",
@@ -34,15 +35,17 @@ function Regform() {
       <Form>
         <label htmlFor="name">Name</label>
         <Field type="text" id="name" name="name" />
-        <ErrorMessage name="name" />
+        <ErrorMessage name="name" component={ErrorMsg} />
+
         <label htmlFor="emial">Email</label>
         <Field type="email" id="email" name="email" />
-        <ErrorMessage name="email" />
+        <ErrorMessage name="email" component={ErrorMsg} />
+
         <label htmlFor="Channel">Channel</label>
         <Field type="text" id="channel" name="channel" />
-        <ErrorMessage name="channel" />
-        <label htmlFor="comments">Comments</label>
+        <ErrorMessage name="channel" component={ErrorMsg} />
 
+        <label htmlFor="comments">Comments</label>
         <Field
           type="text"
           id="comments"
@@ -51,7 +54,9 @@ function Regform() {
           as="textarea"
           placeholder="Type your message here"
         />
+        <ErrorMessage name="comments" component={ErrorMsg} />
 
+        <label htmlFor="address">Address</label>
         <Field name="address">
           {/* props */}
           {(props) => {
@@ -61,13 +66,13 @@ function Regform() {
             console.log("Rendering Props", props);
             return (
               <div>
-                <input type="text" id="address" {...field} />;
+                <input type="text" id="address" {...field} />
                 {meta.touched && meta.error ? <div>{meta.error}</div> : null}
               </div>
             );
           }}
         </Field>
-        <ErrorMessage name="channel" />
+        <ErrorMessage name="address" component={ErrorMsg} />
         <button type="submit">Submit</button>
       </Form>
     </Formik>
