@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Regform from "./components/Regform";
+import { useFormik } from "formik";
 
 function App() {
+  //takes an object
+  //this hooks return an object that contain properties method
+  const formik = useFormik({
+    //object that contain initial values for our form state
+    initialValues: {
+      name: "",
+      email: "",
+      channel: "",
+    },
+  });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Regform />
     </div>
   );
 }
