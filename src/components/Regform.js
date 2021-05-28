@@ -10,30 +10,6 @@ const initialValues = {
 const onSubmit = (values) => {
   console.log("FORM VALUES", values);
 };
-
-const validation = (values) => {
-  // errors key correspond to name attribute of form
-  // values of key is a string inidicating the error message
-  let errors = {};
-
-  if (!values.name) {
-    errors.name = "Required";
-  }
-  if (!values.email) {
-    errors.email = "Required";
-  } else if (
-    !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-      values.email
-    )
-  ) {
-    errors.email = "Invalid Format";
-  }
-  if (!values.channel) {
-    errors.channel = "Required";
-  }
-  return errors;
-};
-
 // Yup shcema validation
 const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
@@ -57,10 +33,6 @@ function Regform() {
     // validate: validation, //commenting for Yup schema validaton
     validationSchema,
   });
-  console.log("FORM VISITED FIELDS", formik.touched);
-  console.log("FORM error FIELDS", formik.errors);
-
-  console.log("FORM VALUES", formik.values);
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
@@ -69,9 +41,7 @@ function Regform() {
           type="text"
           id="name"
           name="name"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.name}
+          {...formik.getFieldProps("name")}
         />
         {/* Only display error messages when the field is visited and have error messgae */}
         {formik.errors.name && formik.touched.name ? (
@@ -82,9 +52,7 @@ function Regform() {
           type="email"
           id="email"
           name="email"
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          value={formik.values.email}
+          {...formik.getFieldProps("email")}
         />
         {formik.errors.email && formik.touched.email ? (
           <div>{formik.errors.email}</div>
@@ -94,9 +62,7 @@ function Regform() {
           type="text"
           id="channel"
           name="channel"
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          value={formik.values.channel}
+          {...formik.getFieldProps("channel")}
         />
         {formik.errors.channel && formik.touched.channel ? (
           <div>{formik.errors.channel}</div>
