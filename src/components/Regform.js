@@ -21,7 +21,7 @@ const validation = (values) => {
   if (!values.email) {
     errors.email = "Required";
   } else if (
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
       values.email
     )
   ) {
@@ -48,6 +48,7 @@ function Regform() {
     // it automatically recieved a values
     validate: validation,
   });
+  console.log("FORM ERROS", formik.errors);
 
   //   console.log("FORM VALUES", formik.values);
   return (
@@ -61,16 +62,16 @@ function Regform() {
           onChange={formik.handleChange}
           value={formik.values.name}
         />
-
+        {formik.errors.name ? <div>{formik.errors.name}</div> : null}
         <label htmlFor="emial">Email</label>
         <input
           type="email"
-          id="emial"
-          name="emial"
+          id="email"
+          name="email"
           onChange={formik.handleChange}
-          value={formik.values.emial}
+          value={formik.values.email}
         />
-
+        {formik.errors.email ? <div>{formik.errors.email}</div> : null}
         <label htmlFor="Channel">Channel</label>
         <input
           type="text"
@@ -79,7 +80,7 @@ function Regform() {
           onChange={formik.handleChange}
           value={formik.values.channel}
         />
-
+        {formik.errors.channel ? <div>{formik.errors.channel}</div> : null}
         <button type="submit">Submit</button>
       </form>
     </div>
