@@ -28,7 +28,7 @@ const validation = (values) => {
     errors.email = "Invalid Format";
   }
   if (!values.channel) {
-    errors.namchannele = "Required";
+    errors.channel = "Required";
   }
   return errors;
 };
@@ -48,7 +48,7 @@ function Regform() {
     // it automatically recieved a values
     validate: validation,
   });
-  console.log("FORM ERROS", formik.errors);
+  console.log("FORM VISITED FIELDS", formik.touched);
 
   //   console.log("FORM VALUES", formik.values);
   return (
@@ -60,27 +60,37 @@ function Regform() {
           id="name"
           name="name"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.name}
         />
-        {formik.errors.name ? <div>{formik.errors.name}</div> : null}
+        {/* Only display error messages when the field is visited and have error messgae */}
+        {formik.errors.name && formik.touched.email ? (
+          <div>{formik.errors.name}</div>
+        ) : null}
         <label htmlFor="emial">Email</label>
         <input
           type="email"
           id="email"
           name="email"
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           value={formik.values.email}
         />
-        {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+        {formik.errors.name && formik.touched.email ? (
+          <div>{formik.errors.email}</div>
+        ) : null}
         <label htmlFor="Channel">Channel</label>
         <input
           type="text"
           id="channel"
           name="channel"
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           value={formik.values.channel}
         />
-        {formik.errors.channel ? <div>{formik.errors.channel}</div> : null}
+        {formik.errors.name && formik.touched.email ? (
+          <div>{formik.errors.channel}</div>
+        ) : null}
         <button type="submit">Submit</button>
       </form>
     </div>
