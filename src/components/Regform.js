@@ -14,12 +14,17 @@ function Regform() {
     },
     //STEP 2
     // chnage handler
+
+    //STEP 3 submit handler
+    onSubmit: (values) => {
+      console.log("FORM VALUES", values);
+    },
   });
 
-  console.log("FORM VALUES", formik.values);
+  //   console.log("FORM VALUES", formik.values);
   return (
     <div>
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <label htmlFor="name">Name</label>
         <input
           type="text"
@@ -41,13 +46,13 @@ function Regform() {
         <label htmlFor="Channel">Channel</label>
         <input
           type="text"
-          id="Channel"
-          name="Channel"
+          id="channel"
+          name="channel"
           onChange={formik.handleChange}
           value={formik.values.channel}
         />
 
-        <button>Submit</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
