@@ -54,7 +54,9 @@ function Regform() {
           as="textarea"
           placeholder="Type your message here"
         />
-        <ErrorMessage name="comments" component={ErrorMsg} />
+        <ErrorMessage name="comments">
+          {(erroMsg) => <div className="error">{erroMsg}</div>}
+        </ErrorMessage>
 
         <label htmlFor="address">Address</label>
         <Field name="address">
