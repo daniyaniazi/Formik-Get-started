@@ -1,5 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const initialValues = {
   name: "",
@@ -33,6 +34,13 @@ const validation = (values) => {
   return errors;
 };
 
+// Yup shcema validation
+const validationSchema = Yup.object({
+  name: Yup.string().required("Required"),
+  email: Yup.string().email("Invalid email format").required("Required"),
+  channel: Yup.string().required("Required"),
+});
+
 function Regform() {
   //takes an object
   //this hooks return an object that contain properties method
@@ -46,11 +54,13 @@ function Regform() {
     //STEP 3 submit handler
     onSubmit: onSubmit,
     // it automatically recieved a values
-    validate: validation,
+    // validate: validation, //commenting for Yup schema validaton
+    validationSchema,
   });
   console.log("FORM VISITED FIELDS", formik.touched);
+  console.log("FORM error FIELDS", formik.errors);
 
-  //   console.log("FORM VALUES", formik.values);
+  console.log("FORM VALUES", formik.values);
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
@@ -64,7 +74,7 @@ function Regform() {
           value={formik.values.name}
         />
         {/* Only display error messages when the field is visited and have error messgae */}
-        {formik.errors.name && formik.touched.email ? (
+        {formik.errors.name && formik.touched.name ? (
           <div>{formik.errors.name}</div>
         ) : null}
         <label htmlFor="emial">Email</label>
@@ -76,7 +86,7 @@ function Regform() {
           onChange={formik.handleChange}
           value={formik.values.email}
         />
-        {formik.errors.name && formik.touched.email ? (
+        {formik.errors.email && formik.touched.email ? (
           <div>{formik.errors.email}</div>
         ) : null}
         <label htmlFor="Channel">Channel</label>
@@ -88,7 +98,7 @@ function Regform() {
           onChange={formik.handleChange}
           value={formik.values.channel}
         />
-        {formik.errors.name && formik.touched.email ? (
+        {formik.errors.channel && formik.touched.channel ? (
           <div>{formik.errors.channel}</div>
         ) : null}
         <button type="submit">Submit</button>
