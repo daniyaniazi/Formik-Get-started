@@ -1,5 +1,6 @@
 import React from "react";
-import { Form, Formik, Field, ErrorMessage, FieldArray } from "formik";
+// Field
+import { Form, Formik, ErrorMessage, FieldArray, FastField } from "formik";
 import * as Yup from "yup";
 import ErrorMsg from "./ErrorMsg";
 
@@ -41,25 +42,25 @@ function Regform() {
       <Form>
         <div className="form-control">
           <label htmlFor="name">Name</label>
-          <Field type="text" id="name" name="name" />
+          <FastField type="text" id="name" name="name" />
           <ErrorMessage name="name" component={ErrorMsg} />
         </div>
 
         <div className="form-control">
           <label htmlFor="emial">Email</label>
-          <Field type="email" id="email" name="email" />
+          <FastField type="email" id="email" name="email" />
           <ErrorMessage name="email" component={ErrorMsg} />
         </div>
 
         <div className="form-control">
           <label htmlFor="Channel">Channel</label>
-          <Field type="text" id="channel" name="channel" />
+          <FastField type="text" id="channel" name="channel" />
           <ErrorMessage name="channel" component={ErrorMsg} />
         </div>
 
         <div className="form-control">
           <label htmlFor="comments">Comments</label>
-          <Field
+          <FastField
             type="text"
             id="comments"
             name="comments"
@@ -74,7 +75,7 @@ function Regform() {
 
         <div className="form-control">
           <label htmlFor="address">Address</label>
-          <Field name="address">
+          <FastField name="address">
             {/* props */}
             {(props) => {
               const { field, form, meta } = props;
@@ -88,13 +89,13 @@ function Regform() {
                 </div>
               );
             }}
-          </Field>
+          </FastField>
           <ErrorMessage name="address" component={ErrorMsg} />
         </div>
 
         <div className="form-control">
           <label htmlFor="facebook">Facebook Profile</label>
-          <Field
+          <FastField
             type="text"
             id="facebook"
             name="social.facebook"
@@ -104,7 +105,7 @@ function Regform() {
 
         <div className="form-control">
           <label htmlFor="twitter">Twitter Profile</label>
-          <Field
+          <FastField
             type="text"
             id="facebook"
             name="social.twitter"
@@ -114,7 +115,7 @@ function Regform() {
 
         <div className="form-control">
           <label htmlFor="primaryPh">Primary Phone Number</label>
-          <Field
+          <FastField
             type="text"
             id="primaryPh"
             name="phoneNumbers[0]"
@@ -124,7 +125,7 @@ function Regform() {
 
         <div className="form-control">
           <label htmlFor="primaryPh">Secondary Phone Number</label>
-          <Field
+          <FastField
             type="text"
             id="primaryPh"
             name="phoneNumbers[1]"
@@ -136,7 +137,6 @@ function Regform() {
           <label htmlFor="phNumbers">List of Phone Numbers</label>
           <FieldArray name="phNumbers">
             {(fieldArrayProps) => {
-              console.log(fieldArrayProps);
               const { push, remove, form } = fieldArrayProps;
               const { values } = form;
               const { phNumbers } = values;
@@ -145,7 +145,7 @@ function Regform() {
                   {phNumbers.map((phNumber, index) => {
                     return (
                       <div key={index}>
-                        <Field name={`phNumbers[${index}]`} />
+                        <FastField name={`phNumbers[${index}]`} />
                         {index > 0 && (
                           <button type="button" onClick={() => remove(index)}>
                             -
