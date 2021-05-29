@@ -32,7 +32,6 @@ const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
   email: Yup.string().email("Invalid email format").required("Required"),
   channel: Yup.string().required("Required"),
-  channel: Yup.string().required("Required"),
   comments: Yup.string().required("Required"),
   // comments: Yup.string().required("Required"), //-(2) Applying validation at field level
 });
@@ -56,6 +55,7 @@ function Regform() {
       validationSchema={validationSchema}
       //validate - func (1)
       onSubmit={onSubmit}
+      // validateOnMount //on page load formik run validation against all field and erro object changes
       //Handle automatic validation
       // validateOnChang={false}
       // validateOnBlur={false}
@@ -64,6 +64,7 @@ function Regform() {
         // function as childern it revice props retirn jsx
         (formik) => {
           console.log(formik);
+          //IsValid = true when errors object is empty
           return (
             <Form>
               <div className="form-control">
@@ -219,7 +220,12 @@ function Regform() {
               >
                 Visit all
               </button>
-              <button type="submit">Submit</button>
+              <button
+                type="submit"
+                disabled={!(formik.isValid && formik.dirty)}
+              >
+                Submit
+              </button>
             </Form>
           );
         }
