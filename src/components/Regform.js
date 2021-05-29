@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Formik, Field, ErrorMessage } from "formik";
+import { Form, Formik, Field, ErrorMessage, FieldArray } from "formik";
 import * as Yup from "yup";
 import ErrorMsg from "./ErrorMsg";
 
@@ -14,6 +14,7 @@ const initialValues = {
     twiiter: "",
   },
   phoneNumbers: ["", ""],
+  phNumbers: [""],
 };
 const onSubmit = (values) => {
   console.log("FORM VALUES", values);
@@ -129,6 +130,38 @@ function Regform() {
             name="phoneNumbers[1]"
             placeholder="Your secondary phone number"
           />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="phNumbers">List of Phone Numbers</label>
+          <FieldArray name="phNumbers">
+            {(fieldArrayProps) => {
+              console.log(fieldArrayProps);
+              const { push, remove, form } = fieldArrayProps;
+              const { values } = form;
+              const { phNumbers } = values;
+              return (
+                <div>
+                  {phNumbers.map((phNumber, index) => {
+                    return (
+                      <div key={index}>
+                        <Field name={`phNumbers[${index}]`} />
+                        {index > 0 && (
+                          <button type="button" onClick={() => remove(index)}>
+                            -
+                          </button>
+                        )}
+
+                        <button type="button" onClick={() => push("")}>
+                          +
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            }}
+          </FieldArray>
         </div>
 
         <button type="submit">Submit</button>
