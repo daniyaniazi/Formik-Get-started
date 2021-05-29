@@ -1,6 +1,13 @@
 import React from "react";
-// Field
-import { Form, Formik, ErrorMessage, FieldArray, FastField } from "formik";
+
+import {
+  Form,
+  Formik,
+  ErrorMessage,
+  Field,
+  FieldArray,
+  FastField,
+} from "formik";
 import * as Yup from "yup";
 import ErrorMsg from "./ErrorMsg";
 
@@ -38,6 +45,9 @@ function Regform() {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      //Handle automatic validation
+      validateOnChang={false}
+      validateOnBlur={false}
     >
       <Form>
         <div className="form-control">
@@ -140,12 +150,18 @@ function Regform() {
               const { push, remove, form } = fieldArrayProps;
               const { values } = form;
               const { phNumbers } = values;
+              //Access errors
+              //VALIDATION RUNS
+              //After any blur event in the form
+              //After evry change event in a form
+              //at Form submission - on every submit w/o inputs (as onChange did not work but still fotmik maintain errors)
+              console.log("Form Errors", form.errors);
               return (
                 <div>
                   {phNumbers.map((phNumber, index) => {
                     return (
                       <div key={index}>
-                        <FastField name={`phNumbers[${index}]`} />
+                        <Field name={`phNumbers[${index}]`} />
                         {index > 0 && (
                           <button type="button" onClick={() => remove(index)}>
                             -
