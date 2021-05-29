@@ -13,6 +13,7 @@ const initialValues = {
     facebook: "",
     twiiter: "",
   },
+  phoneNumbers: ["", ""],
 };
 const onSubmit = (values) => {
   console.log("FORM VALUES", values);
@@ -109,6 +110,27 @@ function Regform() {
             placeholder="twitter profile"
           />
         </div>
+
+        <div className="form-control">
+          <label htmlFor="primaryPh">Primary Phone Number</label>
+          <Field
+            type="text"
+            id="primaryPh"
+            name="phoneNumbers[0]"
+            placeholder="Your primary phone number"
+          />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="primaryPh">Secondary Phone Number</label>
+          <Field
+            type="text"
+            id="primaryPh"
+            name="phoneNumbers[1]"
+            placeholder="Your secondary phone number"
+          />
+        </div>
+
         <button type="submit">Submit</button>
       </Form>
     </Formik>
