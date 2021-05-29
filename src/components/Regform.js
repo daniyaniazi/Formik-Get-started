@@ -9,6 +9,10 @@ const initialValues = {
   channel: "",
   comments: "",
   address: "",
+  social: {
+    facebook: "",
+    twiiter: "",
+  },
 };
 const onSubmit = (values) => {
   console.log("FORM VALUES", values);
@@ -33,48 +37,78 @@ function Regform() {
       onSubmit={onSubmit}
     >
       <Form>
-        <label htmlFor="name">Name</label>
-        <Field type="text" id="name" name="name" />
-        <ErrorMessage name="name" component={ErrorMsg} />
+        <div className="form-control">
+          <label htmlFor="name">Name</label>
+          <Field type="text" id="name" name="name" />
+          <ErrorMessage name="name" component={ErrorMsg} />
+        </div>
 
-        <label htmlFor="emial">Email</label>
-        <Field type="email" id="email" name="email" />
-        <ErrorMessage name="email" component={ErrorMsg} />
+        <div className="form-control">
+          <label htmlFor="emial">Email</label>
+          <Field type="email" id="email" name="email" />
+          <ErrorMessage name="email" component={ErrorMsg} />
+        </div>
 
-        <label htmlFor="Channel">Channel</label>
-        <Field type="text" id="channel" name="channel" />
-        <ErrorMessage name="channel" component={ErrorMsg} />
+        <div className="form-control">
+          <label htmlFor="Channel">Channel</label>
+          <Field type="text" id="channel" name="channel" />
+          <ErrorMessage name="channel" component={ErrorMsg} />
+        </div>
 
-        <label htmlFor="comments">Comments</label>
-        <Field
-          type="text"
-          id="comments"
-          name="comments"
-          // as = component(deprecated)
-          as="textarea"
-          placeholder="Type your message here"
-        />
-        <ErrorMessage name="comments">
-          {(erroMsg) => <div className="error">{erroMsg}</div>}
-        </ErrorMessage>
+        <div className="form-control">
+          <label htmlFor="comments">Comments</label>
+          <Field
+            type="text"
+            id="comments"
+            name="comments"
+            // as = component(deprecated)
+            as="textarea"
+            placeholder="Type your message here"
+          />
+          <ErrorMessage name="comments">
+            {(erroMsg) => <div className="error">{erroMsg}</div>}
+          </ErrorMessage>
+        </div>
 
-        <label htmlFor="address">Address</label>
-        <Field name="address">
-          {/* props */}
-          {(props) => {
-            const { field, form, meta } = props;
-            //field: handle change, blur , name, value
-            // Meta : touched, error?
-            console.log("Rendering Props", props);
-            return (
-              <div>
-                <input type="text" id="address" {...field} />
-                {meta.touched && meta.error ? <div>{meta.error}</div> : null}
-              </div>
-            );
-          }}
-        </Field>
-        <ErrorMessage name="address" component={ErrorMsg} />
+        <div className="form-control">
+          <label htmlFor="address">Address</label>
+          <Field name="address">
+            {/* props */}
+            {(props) => {
+              const { field, form, meta } = props;
+              //field: handle change, blur , name, value
+              // Meta : touched, error?
+              console.log("Rendering Props", props);
+              return (
+                <div>
+                  <input type="text" id="address" {...field} />
+                  {meta.touched && meta.error ? <div>{meta.error}</div> : null}
+                </div>
+              );
+            }}
+          </Field>
+          <ErrorMessage name="address" component={ErrorMsg} />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="facebook">Facebook Profile</label>
+          <Field
+            type="text"
+            id="facebook"
+            name="social.facebook"
+            placeholder="facebook profile"
+          />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="twitter">Twitter Profile</label>
+          <Field
+            type="text"
+            id="facebook"
+            name="social.twitter"
+            placeholder="twitter profile"
+          />
+        </div>
         <button type="submit">Submit</button>
       </Form>
     </Formik>
