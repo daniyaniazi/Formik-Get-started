@@ -32,7 +32,15 @@ const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
   email: Yup.string().email("Invalid email format").required("Required"),
   channel: Yup.string().required("Required"),
+  // comments: Yup.string().required("Required"), //-(2) Applying validation at field level
 });
+
+const validateComments = (value) => {
+  let error;
+  if (!value) {
+    error = "Required";
+  }
+};
 
 function Regform() {
   //takes an object
@@ -44,10 +52,11 @@ function Regform() {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
+      //validate - func (1)
       onSubmit={onSubmit}
       //Handle automatic validation
-      validateOnChang={false}
-      validateOnBlur={false}
+      // validateOnChang={false}
+      // validateOnBlur={false}
     >
       <Form>
         <div className="form-control">
@@ -70,17 +79,16 @@ function Regform() {
 
         <div className="form-control">
           <label htmlFor="comments">Comments</label>
-          <FastField
+          <Field
             type="text"
             id="comments"
             name="comments"
             // as = component(deprecated)
             as="textarea"
             placeholder="Type your message here"
+            validate={validateComments}
           />
-          <ErrorMessage name="comments">
-            {(erroMsg) => <div className="error">{erroMsg}</div>}
-          </ErrorMessage>
+          <ErrorMessage name="comments" comments={ErrorMsg} />
         </div>
 
         <div className="form-control">
@@ -91,7 +99,7 @@ function Regform() {
               const { field, form, meta } = props;
               //field: handle change, blur , name, value
               // Meta : touched, error?
-              console.log("Rendering Props", props);
+
               return (
                 <div>
                   <input type="text" id="address" {...field} />
