@@ -24,7 +24,9 @@ const initialValues = {
   phoneNumbers: ["", ""],
   phNumbers: [""],
 };
-const onSubmit = (values) => {
+const onSubmit = (values, onSubmitProps) => {
+  //true when form subission is attemting
+  onSubmitProps.setSubmiting(false);
   console.log("FORM VALUES", values);
 };
 // Yup shcema validation
@@ -220,9 +222,18 @@ function Regform() {
               >
                 Visit all
               </button>
-              <button
+              {/* <button
                 type="submit"
                 disabled={!(formik.isValid && formik.dirty)}
+                // dirty assume initail values is always invalid
+              >
+                Submit
+
+              </button> */}
+              <button
+                type="submit"
+                disabled={!formik.isValid || formik.isSubmitting}
+                // dirty assume initail values is always invalid
               >
                 Submit
               </button>
