@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Form,
@@ -17,6 +17,20 @@ const initialValues = {
   channel: "",
   comments: "",
   address: "",
+  social: {
+    facebook: "",
+    twiiter: "",
+  },
+  phoneNumbers: ["", ""],
+  phNumbers: [""],
+};
+
+const savedValues = {
+  name: "Daniya",
+  email: "farihadania@hotmail.com",
+  channel: "daniyadodo",
+  comments: "Welcome",
+  address: "xyz",
   social: {
     facebook: "",
     twiiter: "",
@@ -46,14 +60,13 @@ const validateComments = (value) => {
 };
 
 function Regform() {
-  //takes an object
-  //this hooks return an object that contain properties method
-
+  const [formValues, setFormValues] = useState(initialValues);
   return (
     //Wrapping upthe netire form in formik component
     //Pass props
     <Formik
-      initialValues={initialValues}
+      initialValues={formValues}
+      enableReinitialize //it decide form can initail values
       validationSchema={validationSchema}
       //validate - func (1)
       onSubmit={onSubmit}
@@ -202,34 +215,39 @@ function Regform() {
                   }}
                 </FieldArray>
               </div>
-              <button type="submit" onClick={() => formik.validateField}>
+              {/* <button type="button" onClick={() => formik.validateField}>
                 Validate comments
               </button>
               <button type="submit" onClick={() => formik.validateForm}>
                 Validate all
               </button>
               <button
-                type="submit"
+                type="button"
                 onClick={() => formik.setFieldTouched("comments")}
               >
                 Visit comments
-              </button>
+              </button> 
               <button
-                type="submit"
+                type="button"
                 onClick={() =>
                   formik.setTouched({ name: true, channel: true, email: true })
                 }
               >
                 Visit all
-              </button>
+              </button>*/}
               {/* <button
-                type="submit"
+                type="button"
                 disabled={!(formik.isValid && formik.dirty)}
                 // dirty assume initail values is always invalid
               >
                 Submit
 
+                
               </button> */}
+
+              <button type="button" onClick={() => setFormValues(savedValues)}>
+                Load Save
+              </button>
               <button
                 type="submit"
                 disabled={!formik.isValid || formik.isSubmitting}
