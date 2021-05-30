@@ -1,10 +1,9 @@
 import "./App.css";
-import Regform from "./components/Regform";
-
+import FormikContainer from "./components/practical/FormikContainer";
 function App() {
   return (
     <div className="App">
-      <Regform />
+      <FormikContainer />
     </div>
   );
 }
