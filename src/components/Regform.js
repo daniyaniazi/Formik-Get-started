@@ -32,16 +32,20 @@ const savedValues = {
   comments: "Welcome",
   address: "xyz",
   social: {
-    facebook: "",
-    twiiter: "",
+    facebook: "12",
+    twiiter: "12",
   },
-  phoneNumbers: ["", ""],
-  phNumbers: [""],
+  phoneNumbers: ["12", "12"],
+  phNumbers: ["12"],
 };
+
 const onSubmit = (values, onSubmitProps) => {
-  //true when form subission is attemting
-  onSubmitProps.setSubmiting(false);
+  console.log("submiting");
   console.log("FORM VALUES", values);
+  //reset
+  onSubmitProps.resetForm();
+  console.log("FORM VALUES", values);
+  onSubmitProps.setSubmitting(false);
 };
 // Yup shcema validation
 const validationSchema = Yup.object({
@@ -67,7 +71,7 @@ function Regform() {
     <Formik
       initialValues={formValues}
       enableReinitialize //it decide form can initail values
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
       //validate - func (1)
       onSubmit={onSubmit}
       // validateOnMount //on page load formik run validation against all field and erro object changes
@@ -188,7 +192,7 @@ function Regform() {
                     //After any blur event in the form
                     //After evry change event in a form
                     //at Form submission - on every submit w/o inputs (as onChange did not work but still fotmik maintain errors)
-                    console.log("Form Errors", form.errors);
+                    // console.log("Form Errors", form.errors);
                     return (
                       <div>
                         {phNumbers.map((phNumber, index) => {
