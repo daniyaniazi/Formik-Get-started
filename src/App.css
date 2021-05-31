@@ -1,6 +1,8 @@
 .App {
   display: flex;
   justify-content: center;
+  width: 60%;
+  margin: auto;
 }
 
 label {
